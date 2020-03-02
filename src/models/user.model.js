@@ -59,6 +59,7 @@ export default User;
 
 /**
  * ToDos
- * Create virtuals so we can fetch posts belonging to a user
+ * Add tokens for authentication purposes
+ * Create a virtual to enable us fetch posts belonging to a user
  * Create method to only share necessary profile information
  */
