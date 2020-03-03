@@ -1,5 +1,6 @@
 import { Mongoose } from 'mongoose';
 import validator from 'validator';
+import * as jwt from 'jsonwebtoken';
 
 const userSchema = new Mongoose.Schema(
   {
@@ -47,11 +48,28 @@ const userSchema = new Mongoose.Schema(
         }
       },
     },
+    tokens: [
+      {
+        token: {
+          type: String,
+          required: [true, 'No authentication token'],
+        },
+      },
+    ],
   },
   {
     timestamps: true,
   },
 );
+
+// Custom method to generate auth token
+userSchema.methods.generateAuthToken = async function() {
+  const user = this;
+  const token = jwt.sign({ _id: user._id.toString() }, process.env.JWT_SECRET);
+  user.tokens = user.tokens.concat({ token });
+  await user.save();
+  return token;
+};
 
 const User = Mongoose.model('User', userSchema);
 
