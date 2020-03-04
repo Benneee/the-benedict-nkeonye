@@ -71,6 +71,12 @@ userSchema.methods.generateAuthToken = async function() {
   return token;
 };
 
+// userSchema.pre('save', async function (next) {
+//   const user = this;
+
+//   next();
+// })
+
 const User = Mongoose.model('User', userSchema);
 
 export default User;

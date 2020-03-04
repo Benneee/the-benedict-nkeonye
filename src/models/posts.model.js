@@ -27,6 +27,11 @@ const postSchema = new Mongoose.Schema(
       type: Boolean,
       default: false,
     },
+    owner: {
+      type: Mongoose.Schema.Types.ObjectId,
+      required: true,
+      ref: 'User',
+    },
   },
   {
     timestamps: true,
