@@ -1,6 +1,7 @@
 import { Mongoose } from 'mongoose';
 import validator from 'validator';
 import * as jwt from 'jsonwebtoken';
+import * as bcrypt from 'bcryptjs';
 
 const userSchema = new Mongoose.Schema(
   {
@@ -63,7 +64,7 @@ const userSchema = new Mongoose.Schema(
 );
 
 // Custom method to generate auth token
-userSchema.methods.generateAuthToken = async function() {
+userSchema.methods.generateAuthToken = async function genToken() {
   const user = this;
   const token = jwt.sign({ _id: user._id.toString() }, process.env.JWT_SECRET);
   user.tokens = user.tokens.concat({ token });
@@ -71,11 +72,39 @@ userSchema.methods.generateAuthToken = async function() {
   return token;
 };
 
-// userSchema.pre('save', async function (next) {
-//   const user = this;
+// Custom method to validate user on login
+userSchema.statics.findByCredentials = async (email, password) => {
+  // First, find the user by the email
+  const user = await User.findOne({ email });
+  if (!user) {
+    throw new Error('Email is incorrect');
+  }
 
-//   next();
-// })
+  const isMatch = await bcrypt.compare(password, user.password);
+  if (!isMatch) {
+    throw new Error('Password is incorrect');
+  }
+  return user;
+};
+
+// Custom method to hash user's password on create/update - middleware style
+userSchema.pre('save', async function(next) {
+  const user = this;
+
+  if (user.isModified('password')) {
+    user.password = await bcrypt.hash(user.password, 8);
+  }
+
+  next();
+});
+
+// Custom method to share only necessary profile information
+// userSchema.methods.toJSON = function() {
+//   const user = this;
+//   const userObject = user.toObject();
+//   delete userObject.password;
+//   delete userObject.tokens;
+// };
 
 const User = Mongoose.model('User', userSchema);
 
@@ -85,5 +114,5 @@ export default User;
  * ToDos
  * Add tokens for authentication purposes
  * Create a virtual to enable us fetch posts belonging to a user
- * Create method to only share necessary profile information
+ * Create method to only share necessary profile information | DONE: uncomment last method
  */
