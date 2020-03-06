@@ -4,7 +4,7 @@ const { log } = console;
 
 const url = process.env.MONGODB_URL;
 
-mongoose
+const db = mongoose
   .connect(url, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
@@ -12,6 +12,8 @@ mongoose
     useFindAndModify: false,
   })
   .then(() => log('Connected to MongoDB'))
-  .catch((error) => {
+  .catch(error => {
     log(error);
   });
+
+export default db;
