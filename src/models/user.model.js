@@ -5,6 +5,16 @@ import * as bcrypt from 'bcryptjs';
 
 const userSchema = new Mongoose.Schema(
   {
+    /**
+     * Requirements
+     * Name (required)
+     * Email
+     * Age
+     * Avatar
+     * Bio
+     * Password
+     * Token(generated)
+     */
     name: {
       type: String,
       required: [true, 'Name is required'],
