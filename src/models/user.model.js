@@ -1,9 +1,9 @@
-import { Mongoose } from 'mongoose';
+import mongoose from 'mongoose';
 import validator from 'validator';
 import * as jwt from 'jsonwebtoken';
 import * as bcrypt from 'bcryptjs';
 
-const userSchema = new Mongoose.Schema(
+const userSchema = new mongoose.Schema(
   {
     /**
      * Requirements
@@ -116,7 +116,7 @@ userSchema.pre('save', async function(next) {
 //   delete userObject.tokens;
 // };
 
-const User = Mongoose.model('User', userSchema);
+const User = mongoose.model('User', userSchema);
 
 export default User;
 
