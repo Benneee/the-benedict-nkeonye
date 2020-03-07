@@ -25,11 +25,13 @@ const UserController = {
         req.body.password,
       );
       const token = await user.generateAuthToken();
-      return res.json({
-        message: 'Login successful',
-        data: user,
-        token,
-      });
+      return res
+        .json({
+          message: 'Login successful',
+          data: user,
+          token,
+        })
+        .status(200);
     } catch (error) {
       return res.send(error).status(400);
     }
@@ -38,7 +40,7 @@ const UserController = {
   async logoutUser(req, res) {
     try {
       req.user.tokens = req.user.tokens.filter(
-        token => token.token !== req.token,
+        (token) => token.token !== req.token,
       );
       await req.user.save();
       return res.send('Logout successful').status(200);
@@ -68,6 +70,56 @@ const UserController = {
         .status(200);
     } catch (error) {
       return res.send(error).status(404);
+    }
+  },
+
+  async updateUserProfile(req, res) {
+    const updates = Object.keys(req.body);
+    const allowedUpdates = ['name', 'age', 'bio', 'email'];
+    const isValidUpdatedOperation = updates.every((update) =>
+      allowedUpdates.includes(update),
+    );
+    if (!isValidUpdatedOperation) {
+      return res
+        .json({
+          message: 'Invalid update',
+        })
+        .status(400);
+    }
+    try {
+      // 1. Find the user about to be updated
+      const { user } = req;
+      // 2. Loop through the proposed updates & assign the values accordingly
+      updates.forEach((update) => {
+        user[update] = req.body[update];
+      });
+      /**
+       * 3. Call the save method on the document,
+       * this then allows the middleware to deal with the record being updated as well
+       *  */
+      await user.save();
+      return res.json({
+        message: 'Profile updated successfully',
+        data: user,
+      });
+    } catch (error) {
+      return res.send(error).status(400);
+    }
+  },
+
+  async resetPassword(req, res) {
+    const { user } = req;
+    try {
+      user.password = req.body.password;
+      await user.save();
+      return res
+        .json({
+          message: 'Password updated successfully',
+          data: user,
+        })
+        .status(200);
+    } catch (error) {
+      return res.send(error).status(400);
     }
   },
 };
