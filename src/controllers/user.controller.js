@@ -24,6 +24,9 @@ const UserController = {
         req.body.email,
         req.body.password,
       );
+      if (!user) {
+        return res.send().status(400);
+      }
       const token = await user.generateAuthToken();
       return res
         .json({
@@ -33,7 +36,7 @@ const UserController = {
         })
         .status(200);
     } catch (error) {
-      return res.send(error).status(400);
+      return res.status(400).send(error);
     }
   },
 
