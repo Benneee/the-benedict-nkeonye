@@ -1,6 +1,6 @@
-import { Mongoose } from 'mongoose';
+import mongoose from 'mongoose';
 
-const postSchema = new Mongoose.Schema(
+const postSchema = new mongoose.Schema(
   {
     title: {
       type: String,
@@ -28,7 +28,7 @@ const postSchema = new Mongoose.Schema(
       default: false,
     },
     owner: {
-      type: Mongoose.Schema.Types.ObjectId,
+      type: mongoose.Schema.Types.ObjectId,
       required: true,
       ref: 'User',
     },
@@ -38,7 +38,7 @@ const postSchema = new Mongoose.Schema(
   },
 );
 
-const Post = Mongoose.model('Post', postSchema);
+const Post = mongoose.model('Post', postSchema);
 
 export default Post;
 

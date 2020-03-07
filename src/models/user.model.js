@@ -107,6 +107,13 @@ userSchema.pre('save', async function(next) {
   next();
 });
 
+// Virtual to fetch posts belonging to a user
+userSchema.virtual('posts', {
+  ref: 'Post',
+  localField: '_id',
+  foreignField: 'owner',
+});
+
 // Custom method to share only necessary profile information on Login
 userSchema.methods.toJSON = function() {
   const user = this;
