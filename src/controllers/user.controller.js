@@ -1,5 +1,4 @@
 import User from '../models/user.model';
-// import auth from '../middleware/auth';
 
 const UserController = {
   async createUser(req, res) {
@@ -9,7 +8,7 @@ const UserController = {
       const token = await user.generateAuthToken();
       return res
         .json({
-          status: 'account created successfully',
+          message: 'Account created successfully',
           data: user,
           token,
         })
@@ -27,12 +26,48 @@ const UserController = {
       );
       const token = await user.generateAuthToken();
       return res.json({
-        status: 'login successful',
+        message: 'Login successful',
         data: user,
         token,
       });
     } catch (error) {
       return res.send(error).status(400);
+    }
+  },
+
+  async logoutUser(req, res) {
+    try {
+      req.user.tokens = req.user.tokens.filter(
+        token => token.token !== req.token,
+      );
+      await req.user.save();
+      return res.send('Logout successful').status(200);
+    } catch (error) {
+      return res.send(error).status(500);
+    }
+  },
+
+  async logoutUserAll(req, res) {
+    try {
+      req.user.tokens = [];
+      await req.user.save();
+      return res.send('Log out on all devices successful').status(200);
+    } catch (error) {
+      return res.send(error).status(500);
+    }
+  },
+
+  async getUserProfile(req, res) {
+    const { user } = req;
+    try {
+      return res
+        .json({
+          message: 'User profile retrieved successfully',
+          data: user,
+        })
+        .status(200);
+    } catch (error) {
+      return res.send(error).status(404);
     }
   },
 };

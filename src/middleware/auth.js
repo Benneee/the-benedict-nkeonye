@@ -2,7 +2,7 @@ import jwt from 'jsonwebtoken';
 import User from '../models/user.model';
 
 // This middleware is to check if the user trying to login is a valid user
-// It gets the token submitted with the user's requst, then compares the token with
+// It gets the token submitted with the user's request, then compares the token with
 // the token belonging to the user in the DB., then grants the user access
 const auth = async (req, res, next) => {
   try {

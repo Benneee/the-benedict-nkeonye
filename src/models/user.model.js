@@ -108,13 +108,15 @@ userSchema.pre('save', async function(next) {
   next();
 });
 
-// Custom method to share only necessary profile information
-// userSchema.methods.toJSON = function() {
-//   const user = this;
-//   const userObject = user.toObject();
-//   delete userObject.password;
-//   delete userObject.tokens;
-// };
+// Custom method to share only necessary profile information on Login
+userSchema.methods.toJSON = function() {
+  const user = this;
+  const userObject = user.toObject();
+  delete userObject.password;
+  delete userObject.tokens;
+
+  return userObject;
+};
 
 const User = mongoose.model('User', userSchema);
 
