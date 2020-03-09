@@ -6,5 +6,7 @@ const router = Router();
 
 router.post('/', auth, PostController.createPost);
 router.get('/', auth, PostController.getAllPosts);
+router.patch('/:id', auth, PostController.updatePost);
+router.delete('/:id', auth, PostController.deletePost);
 
 export default router;
