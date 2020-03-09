@@ -7,7 +7,8 @@ const PostController = {
      * title: string
      * body: string,
      * description: string,
-     * published: boolean
+     * published: boolean,
+     * postImages: []
      */
     const post = new Post({
       ...req.body,
