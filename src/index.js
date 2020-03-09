@@ -1,4 +1,5 @@
 import express from 'express';
+import cors from 'cors';
 import './db/db';
 
 // Routes Import
@@ -9,6 +10,11 @@ const { log } = console;
 
 const app = express();
 const { PORT } = process.env;
+
+app.use(cors());
+
+// Options for CORS
+app.options('*', cors());
 
 app.use(express.json());
 
