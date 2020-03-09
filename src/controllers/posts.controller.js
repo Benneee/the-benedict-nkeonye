@@ -30,6 +30,11 @@ const PostController = {
   // GET /posts?published=true
   // GET /posts?limit=2&skip=2
   // GET /posts?sortBy=createdAt:desc
+
+  /**
+   * NOTE
+   * When consuming this endpoint, append the query string: 'published=true' to the URL
+   */
   async getAllPosts(req, res) {
     const match = {};
     const sort = {};
@@ -65,6 +70,70 @@ const PostController = {
         .status(200);
     } catch (error) {
       return res.send(error).status(500);
+    }
+  },
+
+  async updatePost(req, res) {
+    const updates = Object.keys(req.body);
+    const allowedUpdates = [
+      'title',
+      'description',
+      'body',
+      'published',
+      'postImages',
+    ];
+    const isValidUpdateOps = updates.every((update) =>
+      allowedUpdates.includes(update),
+    );
+
+    if (!isValidUpdateOps) {
+      return res.status(400).send('Invalid update');
+    }
+
+    const _id = req.params._id;
+
+    try {
+      const post = await Post.findOne({
+        _id: req.params.id,
+        owner: req.user._id,
+      });
+
+      if (!post) {
+        return res.status(404).send('Post not found');
+      }
+
+      updates.forEach((update) => {
+        post[update] = req.body[update];
+      });
+      await post.save();
+
+      return res
+        .json({
+          message: 'Post updated successfully',
+          data: post,
+        })
+        .status(200);
+    } catch (error) {
+      return res.status(500).send(error);
+    }
+  },
+
+  async deletePost(req, res) {
+    try {
+      const post = await Post.findOneAndDelete({
+        _id: req.params.id,
+        owner: req.user._id,
+      });
+
+      if (!post) {
+        return res.status(404).send('Post not found');
+      }
+
+      return res.json({
+        message: 'Post deleted successfully',
+      });
+    } catch (error) {
+      return res.status(500).send(error);
     }
   },
 };
