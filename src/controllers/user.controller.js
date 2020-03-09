@@ -125,6 +125,17 @@ const UserController = {
       return res.send(error).status(400);
     }
   },
+
+  async deleteProfile(req, res) {
+    try {
+      await req.user.remove();
+      return res.json({
+        message: `Account with the email: ${req.user.email} deleted`,
+      });
+    } catch (error) {
+      return res.send(error).status(500);
+    }
+  },
 };
 
 export default UserController;

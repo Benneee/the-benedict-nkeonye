@@ -3,6 +3,7 @@ import './db/db';
 
 // Routes Import
 import userRoutes from './routes/user.route';
+import postRoutes from './routes/posts.route';
 
 const { log } = console;
 
@@ -16,7 +17,8 @@ app.get('/', (req, res) => {
 });
 
 // Routes
-app.use('/api/v1/users', userRoutes); // Sign up
+app.use('/api/v1/users', userRoutes);
+app.use('/api/v1/posts', postRoutes);
 
 app.listen(PORT, () => {
   log(`Server is running on localhost:${PORT}`);
