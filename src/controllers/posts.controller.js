@@ -82,15 +82,15 @@ const PostController = {
       'published',
       'postImages',
     ];
-    const isValidUpdateOps = updates.every((update) =>
-      allowedUpdates.includes(update),
-    );
+    const isValidUpdateOps = updates.every((update) => {
+      return allowedUpdates.includes(update);
+    });
 
     if (!isValidUpdateOps) {
       return res.status(400).send('Invalid update');
     }
 
-    const _id = req.params._id;
+    // const _id = req.params._id;
 
     try {
       const post = await Post.findOne({

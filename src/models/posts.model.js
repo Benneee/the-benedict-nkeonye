@@ -16,6 +16,10 @@ const postSchema = new mongoose.Schema(
       required: [true, 'Kindly add a description'],
       trim: true,
     },
+    category: {
+      type: String,
+      default: 'Personal',
+    },
     postImages: [
       {
         postImage: {
