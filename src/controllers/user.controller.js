@@ -1,8 +1,14 @@
 import User from '../models/user.model';
+import uploadSingleImage from '../utils.js/uploadSingleImg';
 
 const UserController = {
   async createUser(req, res) {
-    const user = new User(req.body);
+    const { body, file } = req;
+    const userData = body;
+    if (file) {
+      userData.avatar = await uploadSingleImage(file);
+    }
+    const user = new User(userData);
     try {
       await user.save();
       const token = await user.generateAuthToken();
@@ -91,11 +97,15 @@ const UserController = {
     }
     try {
       // 1. Find the user about to be updated
-      const { user } = req;
+      const { user, file } = req;
       // 2. Loop through the proposed updates & assign the values accordingly
       updates.forEach((update) => {
         user[update] = req.body[update];
       });
+      if (file) {
+        user.avatar = await uploadSingleImage(file);
+      }
+
       /**
        * 3. Call the save method on the document,
        * this then allows the middleware to deal with the record being updated as well
