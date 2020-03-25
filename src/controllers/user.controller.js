@@ -1,8 +1,14 @@
 import User from '../models/user.model';
+import uploadSingleImage from '../utils.js/uploadSingleImg';
 
 const UserController = {
   async createUser(req, res) {
-    const user = new User(req.body);
+    const { body, file } = req;
+    const userData = body;
+    if (file) {
+      userData.avatar = await uploadSingleImage(file);
+    }
+    const user = new User(userData);
     try {
       await user.save();
       const token = await user.generateAuthToken();

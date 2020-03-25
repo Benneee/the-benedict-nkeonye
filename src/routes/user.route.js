@@ -1,12 +1,13 @@
 import { Router } from 'express';
 import UserController from '../controllers/user.controller';
 import auth from '../middleware/auth';
+import multer from '../middleware/multer';
 
 const router = Router();
 /**
  * Create users (POST)
  */
-router.post('/', UserController.createUser);
+router.post('/', multer.single('avatar'), UserController.createUser);
 router.post('/login', UserController.loginUser);
 router.post('/logout', auth, UserController.logoutUser);
 router.post('/logoutAll', auth, UserController.logoutUserAll);

@@ -13,7 +13,10 @@ const uploadImages = async (files) => {
             if (error) {
               reject(error);
             } else {
-              resolve(res.secure_url);
+              resolve({
+                url: res.url,
+                id: res.public_id,
+              });
             }
           },
         );
