@@ -7,5 +7,6 @@ module.exports = {
     'implicit-arrow-linebreak': 0,
     'function-paren-newline': 0,
     'func-names': 0,
+    'no-console': 0,
   },
 };
