@@ -1,2 +1,6 @@
 node_modules
 /config/dev.env
+/config/test.env
+dist
+.nyc_output
+lcov.info
