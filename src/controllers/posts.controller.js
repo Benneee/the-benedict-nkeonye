@@ -1,19 +1,25 @@
 import Post from '../models/posts.model';
+import uploadImages from '../utils.js/uploadImages';
 
 const PostController = {
   async createPost(req, res) {
     /**
      * Expected format
+     *
      * title: string
      * body: string,
      * description: string,
      * published: boolean,
+     * category: string
      * postImages: []
      */
-    const post = new Post({
-      ...req.body,
-      owner: req.user._id,
-    });
+    const { body, user, files } = req;
+    const postData = body;
+    postData.owner = user._id;
+    if (files) {
+      postData.postImages = await uploadImages(files);
+    }
+    const post = new Post(postData);
     try {
       await post.save();
       return res
