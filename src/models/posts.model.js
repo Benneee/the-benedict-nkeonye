@@ -20,13 +20,7 @@ const postSchema = new mongoose.Schema(
       type: String,
       default: 'Personal',
     },
-    postImages: [
-      {
-        postImage: {
-          type: String,
-        },
-      },
-    ],
+    postImages: [],
     published: {
       type: Boolean,
       default: false,
