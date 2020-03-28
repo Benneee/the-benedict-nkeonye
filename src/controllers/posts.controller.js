@@ -81,13 +81,7 @@ const PostController = {
 
   async updatePost(req, res) {
     const updates = Object.keys(req.body);
-    const allowedUpdates = [
-      'title',
-      'description',
-      'body',
-      'published',
-      'postImages',
-    ];
+    const allowedUpdates = ['title', 'description', 'body', 'published'];
     const isValidUpdateOps = updates.every((update) => {
       return allowedUpdates.includes(update);
     });
@@ -107,10 +101,13 @@ const PostController = {
       if (!post) {
         return res.status(404).send('Post not found');
       }
-
+      const { body, files } = req;
       updates.forEach((update) => {
-        post[update] = req.body[update];
+        post[update] = body[update];
       });
+      if (files) {
+        post.postImages = await uploadImages(files);
+      }
       await post.save();
 
       return res
