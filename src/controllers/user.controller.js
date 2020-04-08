@@ -12,13 +12,11 @@ const UserController = {
     try {
       await user.save();
       const token = await user.generateAuthToken();
-      return res
-        .json({
-          message: 'Account created successfully',
-          data: user,
-          token,
-        })
-        .status(201);
+      return res.status(201).json({
+        message: 'Account created successfully',
+        data: user,
+        token,
+      });
     } catch (error) {
       return res.send(error).status(400);
     }
@@ -52,7 +50,7 @@ const UserController = {
         (token) => token.token !== req.token,
       );
       await req.user.save();
-      return res.send('Logout successful').status(200);
+      return res.status(200).send('Logout successful');
     } catch (error) {
       return res.send(error).status(500);
     }
@@ -62,7 +60,7 @@ const UserController = {
     try {
       req.user.tokens = [];
       await req.user.save();
-      return res.send('Log out on all devices successful').status(200);
+      return res.status(200).send('Log out on all devices successful');
     } catch (error) {
       return res.send(error).status(500);
     }
@@ -89,11 +87,9 @@ const UserController = {
       allowedUpdates.includes(update),
     );
     if (!isValidUpdatedOperation) {
-      return res
-        .json({
-          message: 'Invalid update',
-        })
-        .status(400);
+      return res.status(400).json({
+        message: 'Invalid update',
+      });
     }
     try {
       // 1. Find the user about to be updated
@@ -111,7 +107,7 @@ const UserController = {
        * this then allows the middleware to deal with the record being updated as well
        *  */
       await user.save();
-      return res.json({
+      return res.status(200).json({
         message: 'Profile updated successfully',
         data: user,
       });
@@ -125,12 +121,10 @@ const UserController = {
     try {
       user.password = req.body.password;
       await user.save();
-      return res
-        .json({
-          message: 'Password updated successfully',
-          data: user,
-        })
-        .status(200);
+      return res.status(200).json({
+        message: 'Password updated successfully',
+        data: user,
+      });
     } catch (error) {
       return res.send(error).status(400);
     }
