@@ -2,6 +2,16 @@ import mongoose from 'mongoose';
 
 const postSchema = new mongoose.Schema(
   {
+    /**
+     * Requirements
+     * Title
+     * Body
+     * Description
+     * Category
+     * PostImages
+     * Published
+     * Owner
+     */
     title: {
       type: String,
       required: [true, 'title is required'],

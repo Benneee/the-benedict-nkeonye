@@ -18,7 +18,7 @@ const UserController = {
           data: user,
           token,
         })
-        .status(201);
+        .status(200);
     } catch (error) {
       return res.send(error).status(400);
     }
