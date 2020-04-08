@@ -1,10 +1,10 @@
-import * as request from 'supertest';
+import request from 'supertest';
 import app from '../src/app';
 import User from '../src/models/user.model';
 
 test('Should sign up a new user', async () => {
   const response = await request(app)
-    .post('/users')
+    .post('/api/v1/users')
     .send({
       name: 'Bill',
       email: 'bill@aol.com',
