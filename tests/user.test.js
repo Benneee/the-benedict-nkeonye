@@ -1,32 +1,34 @@
-import request from 'supertest';
-import app from '../src/app';
-import User from '../src/models/user.model';
+// import request from 'supertest';
+// import app from '../src/app';
+// import User from '../src/models/user.model';
+// import { setUpDB } from './fixtures/db';
 
-test('Should sign up a new user', async () => {
-  const response = await request(app)
-    .post('/api/v1/users')
-    .send({
-      name: 'Bill',
-      email: 'bill@aol.com',
-      age: 23,
-      bio: 'ever ready',
-      password: 'Ade561.',
-    })
-    .expect(201);
+// beforeEach(() => {
+//   setUpDB();
+// });
 
-  // Assert that the DB was changed correctly with new data
-  const user = await User.findById(response.body.user._id);
-  expect(user).not.toBeNull();
+// test('Should register new user', async () => {
+//   await request(app)
+//     .post('/api/v1/users')
+//     .send({
+//       name: 'Bill',
+//       email: 'bill@aol.com',
+//       age: 23,
+//       bio: 'ever ready',
+//       password: 'Ade561.',
+//     })
+//     .expect(201);
+// });
 
-  // Assertion about the response object
-  expect(resposne.body).toMatchObject({
-    user: {
-      name: 'Bill',
-      email: 'bill@aol.com',
-      age: 23,
-    },
-    token: user.tokens[0].token,
-  });
-
-  expect(user.password).not.toBe('Ade561.');
-});
+// test('Should not register user with invalid credentials (name)', async () => {
+//   await request(app)
+//     .post('/api/v1/users')
+//     .send({
+//       name: '',
+//       email: 'bill@aol.com',
+//       age: 23,
+//       bio: 'ever ready',
+//       password: 'Ade561.',
+//     })
+//     .expect(400);
+// });
