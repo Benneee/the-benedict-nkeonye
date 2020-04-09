@@ -4,10 +4,10 @@
   "description": "Back-end infrastructure for benedictnkeonye.com",
   "main": "index.js",
   "scripts": {
-    "start": "babel-node src/index.js",
-    "dev": "env-cmd ./config/dev.env nodemon --exec babel-node src/index.js",
-    "test": "env-cmd ./config/test.env jest --collectCoverage --watch --runInBand --colors",
     "babel-build": "babel src -d dist",
+    "start": "npm run babel-build && node dist/index.js",
+    "dev": "env-cmd ./config/dev.env nodemon dist/index.js",
+    "test": "env-cmd ./config/test.env jest --collectCoverage --watch --runInBand --colors",
     "clean": "rm -rf dist && mkdir dist",
     "build": "npm run clean && npm run babel-build"
   },

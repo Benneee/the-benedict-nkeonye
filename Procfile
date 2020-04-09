@@ -1,1 +1,1 @@
-web: babel-node src/index.js
+web: npm run babel-build && node dist/index.js
