@@ -1,12 +1,12 @@
 # benedict-nkeonye.com
-## Installation
+
 ### Clone this repository
 ```
 git clone https://github.com/Benneee/the-benedict-nkeonye.git
 
 ```
 ## Configuration
-Run {npm install}
+Run `npm install`
 ## Operating
 
 ## Troubleshooting
