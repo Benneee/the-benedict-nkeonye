@@ -4,9 +4,9 @@
   "description": "Back-end infrastructure for benedictnkeonye.com",
   "main": "index.js",
   "scripts": {
+    "start": "babel-node src/index.js",
+    "dev": "env-cmd ./config/dev.env nodemon --exec babel-node src/index.js",
     "babel-build": "babel src -d dist",
-    "start": "npm run babel-build && node dist/index.js",
-    "dev": "env-cmd ./config/dev.env nodemon dist/index.js",
     "test": "env-cmd ./config/test.env jest --collectCoverage --watch --runInBand --colors",
     "clean": "rm -rf dist && mkdir dist",
     "build": "npm run clean && npm run babel-build"
@@ -17,6 +17,10 @@
       "./jest.setup.js"
     ]
   },
+  "engine": {
+    "node": "13.8.0"
+  },
+  "heroku-run-build-script": true,
   "repository": {
     "type": "git",
     "url": "https://github.com/Benneee/the-benedict-nkeonye.git"
@@ -48,10 +52,6 @@
   },
   "devDependencies": {
     "@babel/cli": "^7.8.4",
-    "@babel/core": "^7.7.5",
-    "@babel/node": "^7.8.4",
-    "@babel/preset-env": "^7.7.6",
-    "babel-eslint": "^10.0.1",
     "babel-watch": "^7.0.0",
     "codeclimate-test-reporter": "^0.5.1",
     "coveralls": "^3.0.11",
