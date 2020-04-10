@@ -7,6 +7,7 @@ const router = Router();
 
 router.post('/', [auth, multer.array('postImages')], PostController.createPost);
 router.get('/', auth, PostController.getAllPosts);
+router.get('/', PostController.getPosts);
 router.patch(
   '/:id',
   [auth, multer.array('postImages')],

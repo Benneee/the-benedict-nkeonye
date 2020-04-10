@@ -79,6 +79,18 @@ const PostController = {
     }
   },
 
+  async getPosts(req, res) {
+    Post.find((error, posts) => {
+      if (error) {
+        return new Error(error);
+      }
+      return res.status(200).json({
+        message: 'All Posts retrieved successfully',
+        data: posts,
+      });
+    });
+  },
+
   async updatePost(req, res) {
     const updates = Object.keys(req.body);
     const allowedUpdates = ['title', 'description', 'body', 'published'];
