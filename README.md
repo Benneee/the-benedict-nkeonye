@@ -7,12 +7,13 @@ git clone https://github.com/Benneee/the-benedict-nkeonye.git
 ```
 ## Configuration
 Run `npm install`
+
 ## Operating
+Routes description later
 
 ## Troubleshooting
 Browse issues: https://github.com/Benneee/the-benedict-nkeonye/issues
 
-## Routes description later
 
 ## Licence
 Licence: MIT License
