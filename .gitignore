@@ -1,7 +1,4 @@
 node_modules
+dist
 /config/dev.env
 /config/test.env
-.nyc_output
-lcov.info
-coverage
-dist
