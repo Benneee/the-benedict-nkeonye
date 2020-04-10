@@ -1,10 +1,10 @@
 import express from 'express';
 import cors from 'cors';
-import './db/db';
+import './src/db/db';
 
 // Routes Import
-import userRoutes from './routes/user.route';
-import postRoutes from './routes/posts.route';
+import userRoutes from './src/routes/user.route';
+import postRoutes from './src/routes/posts.route';
 
 const app = express();
 

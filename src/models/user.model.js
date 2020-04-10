@@ -85,6 +85,7 @@ userSchema.methods.generateAuthToken = async function genToken() {
 // Custom method to validate user on login
 userSchema.statics.findByCredentials = async (email, password) => {
   // First, find the user by the email
+  // eslint-disable-next-line no-use-before-define
   const user = await User.findOne({ email });
   if (!user) {
     throw new Error('Email is incorrect');
@@ -97,7 +98,7 @@ userSchema.statics.findByCredentials = async (email, password) => {
 };
 
 // Custom method to hash user's password on create/update - middleware style
-userSchema.pre('save', async function(next) {
+userSchema.pre('save', async function (next) {
   const user = this;
 
   if (user.isModified('password')) {
@@ -115,7 +116,7 @@ userSchema.virtual('posts', {
 });
 
 // Custom method to share only necessary profile information on Login
-userSchema.methods.toJSON = function() {
+userSchema.methods.toJSON = function () {
   const user = this;
   const userObject = user.toObject();
   delete userObject.password;

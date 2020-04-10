@@ -1,0 +1,84 @@
+{
+  "version": 2,
+  "builds": [
+    {
+      "src": "index.js",
+      "use": "@now/node"
+    }
+  ],
+  "env": {
+    "JWT_SECRET": "@jwt_secret",
+    "MONGODB_URL": "@mongodb_url",
+    "CLOUDINARY_URL": "@cloudinary_url",
+    "CLOUDINARY_CLOUD_NAME": "@cloudinary_cloud_name",
+    "CLOUDINARY_API_KEY": "@cloudinary_api_key",
+    "CLOUDINARY_API_SECRET": "@cloudinary_api_secret"
+  },
+  "routes": [
+    {
+      "src": "/",
+      "dest": "/index.js",
+      "methods": ["GET"]
+    },
+    {
+      "src": "/api/v1/users",
+      "dest": "/index.js",
+      "methods": ["POST", "OPTIONS"]
+    },
+    {
+      "src": "/api/v1/users/login",
+      "dest": "/index.js",
+      "methods": ["POST", "OPTIONS"]
+    },
+    {
+      "src": "/api/v1/users/logout",
+      "dest": "/index.js",
+      "methods": ["POST", "OPTIONS"]
+    },
+    {
+      "src": "/api/v1/users/logoutAll",
+      "dest": "/index.js",
+      "methods": ["POST", "OPTIONS"]
+    },
+    {
+      "src": "/api/v1/users/profile",
+      "dest": "/index.js",
+      "methods": ["GET"]
+    },
+    {
+      "src": "/api/v1/users/profile/update",
+      "dest": "/index.js",
+      "methods": ["PATCH", "OPTIONS"]
+    },
+    {
+      "src": "/api/v1/users/profile/reset_password",
+      "dest": "/index.js",
+      "methods": ["PATCH", "OPTIONS"]
+    },
+    {
+      "src": "/api/v1/users/profile",
+      "dest": "/index.js",
+      "methods": ["DELETE", "OPTIONS"]
+    },
+    {
+      "src": "/api/v1/posts",
+      "dest": "/index.js",
+      "methods": ["GET"]
+    },
+    {
+      "src": "/api/v1/posts",
+      "dest": "/index.js",
+      "methods": ["POST", "OPTIONS"]
+    },
+    {
+      "src": "/api/v1/posts/(?<id>[^/]+)",
+      "dest": "/index.js",
+      "methods": ["PATCH", "OPTIONS"]
+    },
+    {
+      "src": "/api/v1/posts/(?<id>[^/]+)",
+      "dest": "/index.js",
+      "methods": ["DELETE", "OPTIONS"]
+    }
+  ]
+}

@@ -12,7 +12,7 @@ const db = mongoose
     useFindAndModify: false,
   })
   .then(() => log('Connected to MongoDB'))
-  .catch(error => {
+  .catch((error) => {
     log(error);
   });
 
