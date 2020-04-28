@@ -4,18 +4,14 @@
   "description": "Back-end infrastructure for benedictnkeonye.com",
   "main": "index.js",
   "scripts": {
-    "dev": "env-cmd ./config/dev.env nodemon --exec babel-node src/index.js",
-    "test": "env-cmd ./config/test.env jest --collectCoverage --watch --runInBand --colors",
-    "babel-build": "babel src -d dist",
-    "clean": "rm -rf dist && mkdir dist",
-    "build": "npm run clean && npm run babel-build"
+    "start": "babel-node src/index.js",
+    "dev": "env-cmd ./config/dev.env nodemon --exec babel-node src/index.js"
   },
-  "jest": {
-    "testEnvironment": "node",
-    "setupFilesAfterEnv": [
-      "./jest.setup.js"
-    ]
+  "engines": {
+    "node": "12",
+    "npm": "6.13.7"
   },
+  "heroku-run-build-script": true,
   "repository": {
     "type": "git",
     "url": "https://github.com/Benneee/the-benedict-nkeonye.git"
@@ -38,7 +34,6 @@
     "cloudinary": "^1.19.0",
     "cors": "^2.8.5",
     "express": "^4.17.1",
-    "fsevents": "^2.1.2",
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.8.5",
     "multer": "^1.4.2",
@@ -49,15 +44,13 @@
   "devDependencies": {
     "@babel/cli": "^7.8.4",
     "babel-watch": "^7.0.0",
-    "codeclimate-test-reporter": "^0.5.1",
-    "coveralls": "^3.0.11",
     "env-cmd": "^8.0.2",
     "eslint": "^6.7.2",
     "eslint-config-airbnb-base": "^14.0.0",
     "eslint-plugin-import": "^2.19.1",
-    "jest": "^24.0.0",
-    "nodemon": "^2.0.2",
-    "nyc": "^15.0.0",
-    "supertest": "^3.4.1"
+    "nodemon": "^2.0.2"
+  },
+  "optionalDependencies": {
+    "fsevents": "^2.1.2"
   }
 }
