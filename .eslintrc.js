@@ -10,5 +10,6 @@ module.exports = {
     'no-console': 0,
     'space-before-function-paren': 0,
     'no-undef': 0,
+    'no-else-return': 0,
   },
 };
