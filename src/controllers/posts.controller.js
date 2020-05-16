@@ -109,14 +109,21 @@ const PostController = {
 
   async updatePost(req, res) {
     const updates = Object.keys(req.body);
-    const allowedUpdates = ['title', 'description', 'body', 'published'];
-    const isValidUpdateOps = updates.every((update) => {
-      return allowedUpdates.includes(update);
-    });
+    // const allowedUpdates = [
+    //   'title',
+    //   'description',
+    //   'category',
+    //   'postImages',
+    //   'body',
+    //   'published',
+    // ];
+    // const isValidUpdateOps = updates.every((update) => {
+    //   return allowedUpdates.includes(update);
+    // });
 
-    if (!isValidUpdateOps) {
-      return res.status(400).send('Invalid update');
-    }
+    // if (!isValidUpdateOps) {
+    //   return res.status(400).send('Invalid update');
+    // }
 
     // const _id = req.params._id;
 
